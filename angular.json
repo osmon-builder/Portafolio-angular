@@ -19,12 +19,14 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/assets",
+              "src/favicon.ico"
             ],
             "styles": [
+              "src/styles.css",
+              "src/assets/css/urku.min.css",
+              "src/assets/css/aurora-pack.min.css",
+              "src/assets/css/aurora-theme-base.min.css",
               "src/styles.css"
             ]
           },
@@ -76,6 +78,8 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -88,5 +92,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
