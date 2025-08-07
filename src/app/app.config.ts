@@ -1,11 +1,14 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http'; // 👈 Importar esto
 import { routes } from './app.routes';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes, withHashLocation()) // ✅ Esta es la forma correcta
+    provideRouter(routes, withHashLocation()),
+    provideHttpClient() 
   ]
 };

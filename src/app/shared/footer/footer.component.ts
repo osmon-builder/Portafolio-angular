@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { InfoPaginaService } from '../../services/info-pagina.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,4 +9,11 @@ import { RouterModule } from '@angular/router';
   templateUrl: './footer.html',
   styleUrls: ['./footer.css']
 })
-export class FooterComponent {}
+export class FooterComponent implements OnInit{
+
+constructor( public _servicio: InfoPaginaService){}
+
+  ngOnInit(): void {
+    
+  }
+}
