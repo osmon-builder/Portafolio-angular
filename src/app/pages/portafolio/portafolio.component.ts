@@ -1,12 +1,18 @@
+// src/app/pages/portafolio/portafolio.component.ts
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router'; 
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ProductosService } from '../../services/productos.service';
 
 @Component({
-  selector: 'app-portafolio',
   standalone: true,
-  imports: [RouterModule], 
+  selector: 'app-portafolio',
   templateUrl: './portafolio.html',
-  styleUrl: './portafolio.css'
+  styleUrls: ['./portafolio.css'],
+  imports: [CommonModule, RouterModule] // <- para *ngFor y routerLink
 })
-export class PortafolioComponent {}
+export class PortafolioComponent {
+  // IMPORTANTÍSIMO: inyectar aquí
+  constructor(public productosService: ProductosService) {}
+}
 

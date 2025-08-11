@@ -3,6 +3,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
 import { InfoPaginaService } from './services/info-pagina.service';
+import { ProductosService } from './services/productos.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,9 @@ import { InfoPaginaService } from './services/info-pagina.service';
 export class AppComponent {
   protected readonly title = signal('portafolio2');
 
-  constructor( public _infoPaginaService: InfoPaginaService ){
+  constructor( public _infoPaginaService: InfoPaginaService,
+              public productosService: ProductosService
+   ){
 
   }
 }

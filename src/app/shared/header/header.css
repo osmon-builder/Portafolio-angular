@@ -92,6 +92,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
+  /* Cuando el checkbox está marcado, muestra la navegación */
   .rk-mobile-menu:checked + label + .rk-topbar .rk-navigation {
     display: flex;
   }
@@ -99,3 +100,5 @@
   .rk-menu {
     flex-direction: column;
     gap: 1rem;
+  }
+}
