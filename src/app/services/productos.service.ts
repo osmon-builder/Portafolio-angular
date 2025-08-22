@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Producto } from '../interfaces/producto.interface';
-// ❌ quita esto: import { resolve } from '../../../node_modules/@types/q';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+import { Producto } from '../interfaces/producto.interface';
+import { ProductoDescripcion } from '../interfaces/producto-descripcion.interface';
+
+@Injectable({ providedIn: 'root' })
 export class ProductosService {
+  private readonly base = 'https://angular-html-25cf9.firebaseio.com';
 
   cargando = true;
   productos: Producto[] = [];
@@ -16,16 +17,15 @@ export class ProductosService {
     this.cargarProductos();
   }
 
-  // TIPAR la promesa como Promise<void>
+  // Carga el índice de productos (promesa tipada)
   private cargarProductos(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      // añadir genérico <Producto[]>
-      this.http.get<Producto[]>('https://angular-html-25cf9.firebaseio.com/productos_idx.json')
+      this.http.get<Producto[]>(`${this.base}/productos_idx.json`)
         .subscribe({
           next: (resp) => {
             this.productos = resp ?? [];
             this.cargando = false;
-            resolve();                // ok porque es Promise<void>
+            resolve();
           },
           error: (err) => {
             this.cargando = false;
@@ -35,29 +35,25 @@ export class ProductosService {
     });
   }
 
-  getProducto(id: string) {
-    return this.http.get(`https://angular-html-25cf9.firebaseio.com/productos/${id}.json`);
+  // ⬅️ Tipado correcto del detalle de producto
+  getProducto(id: string): Observable<ProductoDescripcion> {
+    return this.http.get<ProductoDescripcion>(`${this.base}/productos/${id}.json`);
   }
 
-  buscarProducto(termino: string) {
+  buscarProducto(termino: string): void {
     if (this.productos.length === 0) {
-      // cargar productos y luego filtrar
       this.cargarProductos().then(() => this.filtrarProductos(termino));
     } else {
       this.filtrarProductos(termino);
     }
   }
 
-  private filtrarProductos(termino: string) {
-    this.productosFiltrado = [];
+  private filtrarProductos(termino: string): void {
     const q = (termino ?? '').toLowerCase();
-
-    this.productos.forEach(prod => {
-      const tituloLower = (prod.titulo ?? '').toLowerCase();
-      const categoriaLower = (prod.categoria ?? '').toLowerCase();
-      if (categoriaLower.includes(q) || tituloLower.includes(q)) {
-        this.productosFiltrado.push(prod);
-      }
+    this.productosFiltrado = this.productos.filter((p) => {
+      const titulo = (p.titulo ?? '').toLowerCase();
+      const categoria = (p.categoria ?? '').toLowerCase();
+      return titulo.includes(q) || categoria.includes(q);
     });
   }
 }
