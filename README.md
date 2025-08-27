@@ -57,3 +57,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+Task
+'integrar enpoint https://rickandmortyapi.com en cards como si fueran los items del componente ya creado, sol q va a crear un nuevo componente q se llame rick and morty integra la api y lo muestra en cards
